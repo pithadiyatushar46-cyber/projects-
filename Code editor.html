@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+   <style>
+   *{
+     margin: 0%;
+     padding: 0%;
+     font-family: sans-serif;
+   }
+    body{
+        width: 100%;
+        display: flex;
+        height: 100vh;
+        background-color: yellow;
+    }
+    .leftpart{
+        flex-basis: 50%;
+        background-color: aqua;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .content{
+        flex-basis: 33.33%;
+        background-color: blueviolet;
+    }
+    .rightpart{
+        flex-basis: 50%;
+        background-color: purple;
+        height: 100%;
+    }
+    .leftpart .content label{
+        background-color: antiquewhite;
+        display: block;
+        color: black;
+        padding: 10px 0px;
+        border: .5px solid none ;
+    }
+    .leftpart .content textarea{
+        width: calc(100% - 20px);
+        outline: none;
+        background-color: black;
+        color: white;
+        padding: 10px;
+        border: none;
+        height: calc(83.5% - 18px);
+    }
+    .rightpart label{
+        display: block;
+        padding: 10px;
+        background-color: rgb(46, 84, 148);
+        color: white;
+    }
+    .rightpart iframe{
+        display: block;
+        width: 100%;
+        height: 90%;
+        box-sizing: border-box;
+        border: 0px none;
+    }
+   </style>
+</head>
+<body>
+    <div class="leftpart">
+        <div class="content">
+            <label><wa-icon name="html5" family="brands"></wa-icon>HTMl</label>
+            <textarea></textarea>
+        </div>
+        <div class="content">
+            <label>CSS</label>
+            <textarea></textarea>
+        </div>
+        <div class="content">
+            <label>JS</label>
+            <textarea></textarea>
+        </div>
+    </div>
+    <div class="rightpart">
+        <label>Output</label>
+        <iframe id="output"></iframe>
+    </div>
+</body>
+<script>
+    let output=document.querySelector("#output");
+    let allInput=document.querySelectorAll(".leftpart textarea")
+
+    let htmlCode,cssCode,JSCode='';
+    allInput.forEach((el,index)=>{
+        el.addEventListener("keyup",()=>{
+            if(index==0){
+                htmlCode=el.value;
+            }
+            if(index==1){
+                 cssCode=el.value;
+            }
+            if(index==2){
+                JSCode=el.value;
+            }
+                 output.contentDocument.body.innerHTML=htmlCode;
+
+                 output.contentDocument.head.innerHTML=`<style>${cssCode}</style>`;
+
+                 output.contentWindow.eval(JSCode)
+        })
+
+    })
+
+   
+</script>
+</html>
